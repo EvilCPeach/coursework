@@ -9,23 +9,68 @@
 <body>
 <header>
     <a href="" class="logo">
-        <img src="" alt="">
+        <img src="./images/logo.png" alt="">
     </a>
     <div class="links">
         <a href="#">Главная</a>
         <a href="#">О нас</a>
         <a href="#">Контакты</a>
+        <a href="#">Каталог</a>
+        <a href="#">Отзывы</a>
+        <a href="#" class="account">
+            <img src="./images/logo.png" alt="">
+        </a>
     </div>
 </header>
 <main class="images">
     <section>
-        <article class="difference">
+        <article class="difference" id="difference">
             <img src="./images/Screenshot_1.png" alt="Было" class="image image-before">
-             <img src="./images/Screenshot_2.png" alt="Стало" class="image image-after">
-             <div class="slider"></div> 
-         </article>
+            <img src="./images/Screenshot_2.png" alt="Стало" class="image image-after" id="image-after">
+            <button class="" id="close">Закрыть</button>
+            <div class="personal" id="personal">
+                <p>Посмотрите свою комнату:</p>
+                <input type="file" id="upload" accept="image/*">
+            </div>
+            <div class="slider" id="slider"></div>
+            <div class="blurWindow" id="blurWindow"></div>
+            <div class="content" id="content">
+                <div class="content-left">
+                    <div class="title">
+                        <h1>Современное решение</h1>
+                        <p>Затеяли ремонт или понравилась мебель? Мы поможем!</p>
+                    </div>
+                </div>
+                <div class="content-right">
+                    <button class="" id="view">Посмотреть</button>
+                </div>
+            </div>
+        </article>
     </section>
 </main>
+<main class="about" id="about">
+    <h2>О нас</h2>
+    <div class="line"></div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius minus soluta dolore quisquam a, odit totam nulla ab asperiores tempore!</p>
+</main>
+<main class="reviews" id="">
+    <h2>Отзывы</h2>
+    <div class="line"></div>
+    <section class="card">
+        <article class="card-top">
+            <img src="./images/logo.png" alt="" width="20px" height="20px">
+            <h2>Имя пользователя</h2>
+        </article>
+        <article class="card-bottom">
+            <p>Lorem ipsum dolor sit amet.</p>
+        </article>
+    </section>
+</main>
+<footer>
+    <article class="social">
+
+    </article>
+</footer>
 <script src="./scripts/script.js"></script>
 </body>
 </html>
