@@ -7,6 +7,9 @@
     background: none;
     color: rgb(237, 13, 13);
 }
+.hidden{
+    display: none;
+}
 header,.links{
     display: flex;
 }
@@ -128,6 +131,10 @@ body{
 .test{
     width: 100%;
     height: 100vh;
+}
+.reviews{
+    width: 100%;
+    height: 300px;
 }
 .card{
     background-color: rgb(147, 236, 147);
