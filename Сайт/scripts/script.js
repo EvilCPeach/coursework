@@ -22,3 +22,39 @@ closeButton.addEventListener('click', (event) => {
         blurWindow.classList.remove('hidden');
         content.classList.remove('hidden');
 });
+let currentComment = 0;
+const buttonPrev = document.getElementById('previous');
+const buttonNext = document.getElementById('next');
+buttonPrev.addEventListener('click', () => changeComment(-1));
+buttonNext.addEventListener('click', () => changeComment(1));
+function showComment(index) {
+    const slides = document.querySelectorAll('.comment');
+    if (index >= slides.length) {
+        currentComment = 0;
+    } else if (index < 0) {
+        currentComment = slides.length - 1;
+    } else {
+        currentComment = index;
+    }
+    if(currentComment == 0){
+        buttonPrev.setAttribute('hidden', true);
+    }
+    else{
+        buttonPrev.removeAttribute('hidden');
+    }
+    if(currentComment == 2){
+        buttonNext.setAttribute('hidden', true);
+    }
+    else{
+        buttonNext.removeAttribute('hidden');
+    }
+    let offset = -currentComment * 100;
+    document.getElementById('comments').style.transform = `translateX(${offset}%)`;
+}
+
+function changeComment(direction) {
+    showComment(currentComment + direction);
+}
+setInterval(()=>{
+    changeComment(1);
+}, 7000);

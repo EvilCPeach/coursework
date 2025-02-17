@@ -56,21 +56,25 @@
 <main class="reviews" id="">
     <h2>Отзывы</h2>
     <div class="line"></div>
-    <a href="#">
-        <img src="./images/logo.png" alt="" width="50px" height="50px">
-    </a>
-    <section class="card">
-        <article class="card-top">
-            <img src="./images/logo.png" alt="" width="20px" height="20px">
-            <h2>Имя пользователя</h2>
+    <a href="./pages/comments.html" target="_self">Показать все отзывы</a>
+    <section class="sliderComments">
+        <article class="comments" id="comments">
+            <div class="comment">
+                <p>"Этот продукт просто отличный!"</p>
+                <h4>- Иван Иванов</h4>
+            </div>
+            <div class="comment">
+                <p>"Я очень доволен покупкой!"</p>
+                <h4>- Анна Смирнова</h4>
+            </div>
+            <div class="comment">
+                <p>"Рекомендую всем своим друзьям!"</p>
+                <h4>- Сергей Петров</h4>
+            </div>
         </article>
-        <article class="card-bottom">
-            <p>Lorem ipsum dolor sit amet.</p>
-        </article>
+        <button class="previous" id="previous" hidden>&#10094;</button>
+        <button class="next" id="next">&#10095;</button>
     </section>
-    <a href="#">
-        <img src="./images/logo.png" alt="" width="50px" height="50px">
-    </a>
 </main>
 <main class="registration" id="reg">
     <form action="">
@@ -80,7 +84,7 @@
 </main>
 <footer>
     <article class="social">
-
+        
     </article>
 </footer>
 <script src="./scripts/script.js"></script>
