@@ -7,8 +7,13 @@
     background: none;
     color: rgb(237, 13, 13);
 }
+body{
+    width: 100%;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
 .hidden{
-    display: none;
+    opacity: 0;
 }
 header,.links{
     display: flex;
@@ -37,10 +42,9 @@ header>a>img,.links>a>img{
     justify-content: space-between;
     align-items: center;
 }
-body{
-    width: 100%;
-    height: 100vh;
-    background-color: #f0f0f0;
+.links>button{
+    background-color: #cccccc00;
+    border-radius: 50%;
 }
 .difference{
     position: relative;
@@ -51,6 +55,16 @@ body{
 .difference>button{
     position: absolute;
     top: 50px;
+}
+.difference>img{
+    object-fit: cover;
+}
+.hamburger{
+    display: none;
+    background-color: antiquewhite;
+    width: 30px;
+    height: 30px;
+    margin: 0 20px 0 0;
 }
 .personal{
     width: 100%;
@@ -174,7 +188,6 @@ body{
     background-color: hotpink;
     width: 100%;
     height: 150px;
-
 }
 footer{
     background-color: rgb(237, 13, 13);
@@ -194,7 +207,14 @@ footer{
     .slider{
         display: none;
     }
-    footer{
-        position: fixed;
+    .hamburger{
+        display: block;
+    }
+    .links>a{
+        display: none;
+    }
+    .links{
+        justify-content: flex-end;
+
     }
 }

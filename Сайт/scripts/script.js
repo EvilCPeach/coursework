@@ -25,6 +25,13 @@ closeButton.addEventListener('click', (event) => {
 let currentComment = 0;
 const buttonPrev = document.getElementById('previous');
 const buttonNext = document.getElementById('next');
+let comments = document.getElementById('comments');
+// comments.addEventListener('touchmove', () => {
+//     comments.style.transform = 'translateX(-100%)';
+// })
+// comments.addEventListener('touchend', () => {
+//     comments.style.transform = 'translateX(-100%)';
+// })
 buttonPrev.addEventListener('click', () => changeComment(-1));
 buttonNext.addEventListener('click', () => changeComment(1));
 function showComment(index) {
@@ -49,7 +56,7 @@ function showComment(index) {
         buttonNext.removeAttribute('hidden');
     }
     let offset = -currentComment * 100;
-    document.getElementById('comments').style.transform = `translateX(${offset}%)`;
+    comments.style.transform = `translateX(${offset}%)`;
 }
 
 function changeComment(direction) {
