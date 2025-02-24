@@ -1,3 +1,11 @@
+@font-face {
+    font-family: Paragraph;
+    src: url(../fonts/Play-Regular.ttf);
+}
+@font-face{
+    font-family: Title;
+    src: url(../fonts/ProstoOne-Regular.ttf);
+}
 *{
     margin: 0;
     padding: 0;
@@ -7,8 +15,19 @@
     background: none;
     color: rgb(237, 13, 13);
 }
+p{
+    font-family:"Paragraph";
+}
+h1,h2{
+    font-family: "Title";
+}
+body{
+    width: 100%;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
 .hidden{
-    display: none;
+    opacity: 0;
 }
 header,.links{
     display: flex;
@@ -18,7 +37,7 @@ header{
     width: 100%;
     height: 50px;
     position: fixed;
-    z-index: 2;
+    z-index: 10;
 }
 header>a>img,.links>a>img{
     width: 50px;
@@ -37,10 +56,9 @@ header>a>img,.links>a>img{
     justify-content: space-between;
     align-items: center;
 }
-body{
-    width: 100%;
-    height: 100vh;
-    background-color: #f0f0f0;
+.links>button{
+    background-color: #cccccc00;
+    border-radius: 50%;
 }
 .difference{
     position: relative;
@@ -51,11 +69,23 @@ body{
 .difference>button{
     position: absolute;
     top: 50px;
+    z-index: 3;
+}
+.difference>img{
+    object-fit: cover;
+}
+.hamburger{
+    display: none;
+    background-color: antiquewhite;
+    width: 30px;
+    height: 30px;
+    margin: 0 20px 0 0;
 }
 .personal{
     width: 100%;
     position: absolute;
     bottom: 0;
+    z-index: 3;
 }
 .image{
     position: absolute;
@@ -68,7 +98,7 @@ body{
     width: 100%;
 }
 .image-after{
-    clip-path: inset(0 50% 0 0);
+    animation: move 2.7s infinite ease-in-out;
 }
 .slider{
     position: absolute;
@@ -77,6 +107,7 @@ body{
     width: 3px;
     height: 100%;
     background-color: deeppink;
+    animation: pulse 0.6s infinite;
 }
 .images{
     width: 100%;
@@ -86,11 +117,8 @@ body{
     height: 100%;
     width: 100%;
     backdrop-filter: blur(5px);
-}
-.closer{
     position: absolute;
-    top: 50px;
-    right: 97%;
+    z-index: 3;
 }
 .content{
     position: absolute;
@@ -99,6 +127,7 @@ body{
     width: 100%;
     height: 350px;
     top: 50px;
+    z-index: 5;
 }
 .content-left,.content-right{
     display: flex;
@@ -108,18 +137,51 @@ body{
 .hidden{
     display: none;
 }
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 3px;
+    height: 100%;
+    background-color: deeppink;
+}
 .title{
     width: 100%;
     height: 100px;
 }
 .about{
-    background-color: coral;
+    background-image: url(../images/3-21.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
     width: 100%;
     height: 300px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+}
+.windowAbout{
+    border: 1px solid rgb(68, 67, 67);
+    border-radius: 20px;
+    width: 365px;
+    height: 195px;
+}
+.blurAbout{
+    position: absolute;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    width: 365px;
+    height: 195px;
+}
+.textAbout{
+    position: absolute;
+    text-align: center;
+}
+.textAbout>p{
+    margin: 55px 0 0 0;
+    width: 365px;
+    
 }
 .line{
     background-color: black;
@@ -174,7 +236,6 @@ body{
     background-color: hotpink;
     width: 100%;
     height: 150px;
-
 }
 footer{
     background-color: rgb(237, 13, 13);
@@ -185,7 +246,7 @@ footer{
 }
 @media screen and (max-width: 500px) {
     .image-after{
-        transition: clip-path 0.8s ease;
+        transition: clip-path 1.5s ease;
     }
     .closer{
         top: 50px;
@@ -194,7 +255,32 @@ footer{
     .slider{
         display: none;
     }
-    footer{
-        position: fixed;
+    .hamburger{
+        display: block;
+    }
+    .links>a{
+        display: none;
+    }
+    .links{
+        justify-content: flex-end;
+    }
+    .about{
+        height: 300px;
+    }
+}
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+@keyframes move{
+    0%, 100%{
+        clip-path: inset(0px 45% 0px 0px);
+    }
+    50%{
+        clip-path: inset(0px 60% 0px 0px);
     }
 }
