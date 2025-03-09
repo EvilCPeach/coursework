@@ -145,6 +145,7 @@ header>a>img,.links>a>img{
     width: 3px;
     height: 100%;
     background-color: deeppink;
+    animation: pulse 0.8s infinite ease-in-out, sliderMove 2.7s infinite ease-in-out;
 }
 .title{
     width: 100%;
@@ -169,6 +170,7 @@ header>a>img,.links>a>img{
 }
 .blurAbout{
     position: absolute;
+    background-color: #7575759c;
     backdrop-filter: blur(10px);
     border-radius: 20px;
     width: 365px;
@@ -181,7 +183,7 @@ header>a>img,.links>a>img{
 .textAbout>p{
     margin: 55px 0 0 0;
     width: 365px;
-    
+    color: rgb(241, 235, 235);
 }
 .line{
     background-color: black;
@@ -252,9 +254,6 @@ footer{
         top: 50px;
         right: 85%;
     }
-    .slider{
-        display: none;
-    }
     .hamburger{
         display: block;
     }
@@ -273,7 +272,8 @@ footer{
         transform: scale(1);
     }
     50% {
-        transform: scale(1.2);
+        transform: scale(1.8);
+        filter: blur(2px);
     }
 }
 @keyframes move{
@@ -282,5 +282,13 @@ footer{
     }
     50%{
         clip-path: inset(0px 60% 0px 0px);
+    }
+}
+@keyframes sliderMove{
+    0%, 100%{
+        left: 55%;
+    }
+    50%{
+        left: 40%;
     }
 }

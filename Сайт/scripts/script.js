@@ -12,25 +12,33 @@ difference.addEventListener('mousemove', (e) => {
         slider.style.left = `${percent}%`;
         imageAfter.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
         imageAfter.style.animation = 'none';
+        slider.style.animation = 'none';
         animationInterval = clearInterval(animationInterval);
         animationInterval = setInterval(() => {
-            imageAfter.style.animation = 'move 2.7s infinite ease-in-out'
+            slider.classList.remove('hidden'); 
+            imageAfter.style.animation = 'move 2.7s infinite ease-in-out';
+            slider.style.animation = 'pulse 0.8s infinite ease-in-out, sliderMove 2.7s infinite ease-in-out';
         }, 7000);
 });
 viewButton.addEventListener('click', (event) => {
         event.preventDefault();
         blurWindow.classList.add('hidden');
         content.classList.add('hidden');
-        imageAfter.style.animation = 'none'; 
+        slider.classList.add('hidden'); 
+        imageAfter.style.animation = 'none';
+        slider.style.animation = 'none';
 });
 closeButton.addEventListener('click', (event) => {
         event.preventDefault();
         blurWindow.classList.remove('hidden');
         content.classList.remove('hidden');
+        slider.classList.remove('hidden'); 
         imageAfter.style.animation = 'move 2.7s infinite ease-in-out';
+        slider.style.animation = 'pulse 0.8s infinite ease-in-out, sliderMove 2.7s infinite ease-in-out';
 });
 let animationInterval = setInterval(() => {
-    imageAfter.style.animation = 'move 2.7s infinite ease-in-out'
+    imageAfter.style.animation = 'move 2.7s infinite ease-in-out';
+    slider.style.animation = 'pulse 0.8s infinite ease-in-out, sliderMove 2.7s infinite ease-in-out';
 }, 7000);
 let currentComment = 0;
 let startX = 0;
