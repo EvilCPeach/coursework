@@ -1,6 +1,8 @@
 <?php
     require_once '../config/link.php';
-    $selectUsers = " SELECT * FROM `users` ";
+    $selectUsers = " SELECT * FROM `users` 
+        WHERE NULLIF(`comment-user`, '') IS NOT NULL 
+        ORDER BY `users`.`date-comment-user` DESC ";
     $queryUsers = $link->query($selectUsers);
     $resultUsers = $queryUsers->fetchAll(PDO::FETCH_ASSOC);
 ?>

@@ -1,27 +1,20 @@
 <?php
    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       require_once '../config/link.php';
-      $image = $_FILES['avatar']['tmp_name'];
-      // if($_FILES['avatar']['size'] > 2000000){
-      //    echo 'больше 2мб';
-      // }
-      // else{
-      //    echo 'меньше 2мб';
-      // }
-      $imageData = file_get_contents($image);
-      $insertAvatar = $link->prepare(" INSERT INTO `users`(`avatar-user`) 
-         VALUES (:avatar) ");
-      $insertAvatar->bindParam(":avatar", $imageData);
-      $resultInsert = $insertAvatar->execute();
-      if($resultInsert){
-         echo "Аватар успешно загружен";
-         $insertAvatar = null;
-         $link = null;
+      $room = imagecreatefromjpeg($_FILES['userRoom']['tmp_name']);
+      $userChoise = $_POST['furniture'];
+      switch($userChoise){
+         case 'chair':
+            $furniture = imagecreatefrompng('../images/объедоккресло.png');
+            break;
+         case 'table':
+            $furniture = imagecreatefrompng('../images/объедокстол.png');
+            break;
       }
-      else{
-         echo "Ошибка при загрузки аватара";
-      }
-      header('location: ../index.php');
+      imagecopy($room, $furniture, 100, 200, 0, 0, imagesx($furniture), imagesy($furniture));
+      header('Content-Type: image/jpeg');
+      imagejpeg($room);
+      imagedestroy($room);
       exit();
   }
 ?>

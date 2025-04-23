@@ -3,6 +3,26 @@ const imageAfter = document.getElementById('image-after');
 const difference = document.getElementById('difference');
 const blurWindow = document.getElementById('blurWindow');
 const content = document.getElementById('content');
+const header = document.getElementById('header');
+document.addEventListener('scroll', function(){
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        header.style.backgroundColor = "#01939A";
+    } else {
+        header.style.backgroundColor = "#34C6CD";
+    }
+});
+const links = document.querySelectorAll('a[href^="#"]').forEach(link =>{
+    link.addEventListener('click', function(event){
+        event.preventDefault();
+        const targetLink = link.getAttribute('href');
+        const targetElement = document.querySelector(targetLink);
+        if(targetElement){
+            targetElement.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
 const closeButton = document.getElementById('closeButton').addEventListener('click', () => {
     blurWindow.classList.remove('hidden');
     content.classList.remove('hidden');
