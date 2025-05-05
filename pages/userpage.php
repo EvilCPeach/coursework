@@ -12,6 +12,9 @@
     $queryUsers = $link->prepare($selectUsers);
     $queryUsers->execute();
     $resultUsers = $queryUsers->fetchAll(PDO::FETCH_ASSOC);
+    if($_SESSION['login'] == 'unknown' || $_SESSION == null){
+        header('location: ../index.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="ru">
