@@ -1,9 +1,51 @@
 const slider = document.getElementById('slider');
 const imageAfter = document.getElementById('image-after');
 const difference = document.getElementById('difference');
+document.getElementById('personal').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('../functions/upload.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.querySelector('.image-before').src = data.originalUrl + '?t=' + Date.now();
+            document.querySelector('.image-after').src = data.processedUrl + '?t=' + Date.now();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ошибка загрузки изображения');
+    });
+});
 const blurWindow = document.getElementById('blurWindow');
 const content = document.getElementById('content');
 const header = document.getElementById('header');
+const bgModal = document.getElementById('bgModal');
+const modal = document.getElementById('modal');
+const closeModal = document.getElementById('closeModal').addEventListener('click', function(){
+    bgModal.classList.add('hidden');
+    modal.classList.add('hidden');
+});
+const entryButton = document.getElementById('entryButton').addEventListener('click',function(){
+    bgModal.classList.remove('hidden');
+    modal.classList.remove('hidden');
+    profileMenu.classList.add('hidden');
+});
+const regForm = document.getElementById('reg');
+const entryForm = document.getElementById('entry');
+const regModal = document.getElementById('modalReg').addEventListener('click', function(){
+    regForm.classList.remove('hidden');
+    entryForm.classList.add('hidden');
+});
+const entryModal = document.getElementById('modalEntry').addEventListener('click', function(){
+    regForm.classList.add('hidden');
+    entryForm.classList.remove('hidden');
+});
 document.addEventListener('scroll', function(){
     if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
         header.style.backgroundColor = "#01939A";

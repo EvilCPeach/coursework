@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once './config/link.php';
     $selectUsers = " SELECT * FROM `users` 
         WHERE NULLIF(`comment-user`, '') IS NOT NULL 
@@ -6,6 +7,24 @@
     $queryUsers = $link->prepare($selectUsers);
     $queryUsers->execute();
     $resultUsers = $queryUsers->fetchAll(PDO::FETCH_ASSOC);
+    $selectAllUsers = " SELECT * FROM `users` ";
+    $queryAllUsers = $link->prepare($selectAllUsers);
+    $queryAllUsers->execute();
+    $resultAllUsers = $queryAllUsers->fetchAll(PDO::FETCH_ASSOC);
+    if(isset($_POST['userLogin']) && isset($_POST['userPassword'])){
+        $userFound = false;
+    
+    foreach ($resultAllUsers as $allUser) {
+        if ($_POST['userLogin'] == $allUser['login-user'] && $_POST['userPassword'] == $allUser['password-user']) {
+            $_SESSION['login'] = $allUser['login-user'];
+            header('Location: /pages/userpage.php');
+            exit(); 
+        }
+    }
+    if (!$userFound) {
+        $_SESSION['login'] = 'unknown';
+    }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -17,42 +36,71 @@
 </head>
 <body>
     <header id="header">
-        <a href="#" class="logo">
+        <a href="#logo" class="logo">
             <img src="./images/logo.png" alt="" width="70px" height="70px">
         </a>
         <div class="links">
             <a href="#main">Главная</a>
             <a href="#about">О нас</a>
             <a href="#contacts">Контакты</a>
-            <a href="#catalog">Каталог</a>
-            <a href="#reviwes">Отзывы</a>
+            <a href="#reviews">Отзывы</a>
             <button class="dropdown" id="dropdown">
-
+                <img src="./images/leftArrow.svg" alt="">
             </button>
             <div class="dropdown-menu hidden" id="dropdownMenu">
-                <a href="#">Главная</a>
+                <a href="#main">Главная</a>
                 <a href="#about">О нас</a>
                 <a href="#contacts">Контакты</a>
-                <a href="#catalog">Каталог</a>
-                <a href="#reviwes">Отзывы</a>
+                <a href="#reviews">Отзывы</a>
             </div>
             <button class="profile" id="profile">
                 <img src="./images/icon-profile.png" alt="" width="50px" height="50px">
             </button>
             <div class="profile-menu hidden" id="profileMenu">
-                <a href="#">Профиль</a>
-                <a href="#">Настройки</a>
-                <a href="#">Вход</a>
+                <a href="#entry" id="entryButton">Вход</a>
             </div>
         </div>
     </header>
-    <main class="images">
-        <section>
+    <main class="modal hidden" id="modal">
+        <section class="modal-top">
+            <article class="modal-reg" id="modalReg">
+                <h3>Регистрация</h3>
+            </article>
+            <article class="modal-entry" id="modalEntry">
+                <h3>Вход</h3>
+            </article>
+            <article>
+                <img src="./images/closeIcon.png" alt="" class="closeModal" id="closeModal">
+            </article>
+        </section>
+        <section class="modal-bottom">
+            <form action="./functions/registration.php" method="POST" enctype="multipart/form-data" class="" id="reg">
+                <input type="date" name="dateComment" value="<?= date('Y-m-d') ?>" hidden>
+                <label for="avatarr">Загрузите аватар:</label>
+                <input type="file" name="avatar" id="avatarr">
+                <input type="text" name="login" placeholder="Придумайте логин">
+                <input type="password" name="password" placeholder="Придумайте пароль">
+                <input type="tel" name="phone" placeholder="Введите телефон">
+                <input type="text" name="FIO" placeholder="Введите ФИО">
+                <input type="submit" value="Зарегистрироваться">
+            </form>
+            <form action="" method="POST" id="entry" class="hidden">
+                <input type="text" placeholder="Введите логин" name="userLogin">
+                <input type="password" placeholder="Введите пароль" name="userPassword">
+                <input type="submit" value="Войти">
+            </form>
+        </section>
+    </main>
+    <main class="backgroundModal hidden" id="bgModal">
+        
+    </main>
+    <main class="images" id="headerr">
+        <section id="up">
             <article class="difference" id="difference">
-                <img src="./images/нестол2.png" alt="Было" class="image image-before">
+                <img src="./images/нестол2.png" alt="Было" class="image image-before" id="image-before">
                 <img src="./images/стол2.png" alt="Стало" class="image image-after" id="image-after">
                 <button class="closeButton" id="closeButton">Закрыть</button>
-                <form action="./functions/upload.php" method="POST" enctype="multipart/form-data"  class="personal" id="personal">
+                <form class="personal" id="personal">
                     <label for="upload">Посмотрите свою комнату:</label>
                     <input type="file" name="userRoom" id="upload">
                     <label for="furniture">Выберите что хотите видеть в комнате:</label>
@@ -60,7 +108,7 @@
                         <option value="chair">Кресло</option>
                         <option value="table">Стол</option>
                     </select>
-                    <input type="submit" value="Загрузить">
+                    <input type="submit" value="Загрузить" id="uploadImage">
                 </form>
                 <div class="slider" id="slider"></div>
                 <div class="blurWindow" id="blurWindow"></div>
@@ -129,29 +177,51 @@
                 <img src="./images/rightArrow.svg" alt="">
             </button>
         </section>
-        <a href="./pages/comments.php" target="_self">Показать все отзывы</a>
+        <section class="allComments">
+            <a href="./pages/comments.php" target="_self">Показать все отзывы</a>
+        </section>
     </main>
     <main class="registration" id="reg">
-        <h1>Зарегистрироваться</h1>
-        <div class="line"></div>
-        <form action="./functions/registration.php" method="POST" enctype="multipart/form-data">
+        <div class="registration-top">
+            <h2>Зарегистрироваться</h2>
+            <div class="line"></div>
+        </div>
+        <form action="./functions/registration.php" method="POST" enctype="multipart/form-data" class="formRegistration">
             <input type="date" name="dateComment" value="<?= date('Y-m-d') ?>" hidden>
-            <input type="file" name="avatar">
+            <label for="avatar">Загрузите аватар:</label>
+            <input type="file" name="avatar" id="avatar">
             <input type="text" name="login" placeholder="Придумайте логин">
             <input type="password" name="password" placeholder="Придумайте пароль">
-            <!-- <input type="password" name="password" placeholder="Повторите пароль" hidden> -->
             <input type="tel" name="phone" placeholder="Введите телефон">
             <input type="text" name="FIO" placeholder="Введите ФИО">
             <input type="submit" value="Зарегистрироваться">
         </form>
     </main>
-    <footer>
-        <a href="#header" class="up">
+    <footer id="contacts">
+        <a href="#up" class="up">
             <img src="./images/rightArrow.svg" alt="" width="50px" height="50px">
         </a>
-        <article class="social">
-            
+        <p class="copyright">© Дронов Д. С., 2025</p>
+        <article class="menu-footer">
+            <div class="links">
+                <a href="#main">Главная</a>
+                <a href="#about">О нас</a>
+                <a href="#contacts">Контакты</a>
+                <a href="#reviwes">Отзывы</a>
+                <button class="dropdown" id="dropdown">
+                    <img src="./images/leftArrow.svg" alt="">
+                </button>
+                <div class="dropdown-menu hidden" id="dropdownMenu">
+                    <a href="#headerr">Главная</a>
+                    <a href="#about">О нас</a>
+                    <a href="#contacts">Контакты</a>
+                    <a href="#reviwes">Отзывы</a>
+                </div>
+            </div>
         </article>
+        <a href="#logo" class="logo">
+            <img src="./images/logo.png" alt="" width="70px" height="70px">
+        </a>
     </footer>
     <script src="./scripts/script.js"></script>
 </body>

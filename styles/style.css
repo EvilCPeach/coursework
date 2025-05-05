@@ -82,6 +82,9 @@ header{
 .dropdown-menu>a{
     margin: 0 10px 0 10px;
 }
+.profile{
+    border: none;
+}
 .profile-menu{
     position: absolute;
     right: 0;
@@ -115,10 +118,56 @@ header{
 }
 .dropdown{
     display: none;
+    border: none;
     background-color: antiquewhite;
     width: 30px;
     height: 30px;
     margin: 0 20px 0 0;
+}
+.dropdown>img{
+    transform: rotate(270deg);
+}
+.backgroundModal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.608);
+    width: 100%;
+    height: 100%;
+}
+.modal{
+    border: 1px solid black;
+    border-radius: 20px;
+    position: fixed;
+    z-index: 21;
+    background-color: white;
+    width: 500px;
+    height: 200px;
+    left: 35%;
+}
+.modal-top{
+    background-color: burlywood;
+    width: 100%;
+    height: 50px;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: row;
+}
+.modal-entry,.modal-reg{
+    margin: 0 0 0 20px;
+}
+.modal-reg,.modal-entry{
+    display: flex;
+    align-items: center;
+}
+.modal-reg:hover,.modal-entry:hover, .closeModal:hover{
+    cursor: pointer;
+}
+.closeModal{
+    width: 50px;
+    height: 50px;
+    margin: 0 0 0 222px;
 }
 .personal{
     width: 100%;
@@ -226,11 +275,18 @@ header{
     animation: wave 1.5s infinite alternate;
     background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
 }
-.titleAbout>h2, .reviews-top>h2{
+.registration:hover .line{
+    animation: wave 1.5s infinite alternate;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+}
+.titleAbout>h2, .reviews-top>h2, .registration-top>h2{
     color: #ff6b6b;
 }
 .reviews-top>.line{
     width: 103px;
+}
+.registration-top>.line{
+    width: 280px;
 }
 .line{
     background-color: #4ecdc4;
@@ -276,7 +332,7 @@ header{
 .comment-top{
     min-width: 50px;
     height: 45px;
-    margin: 0 0 0 46px;
+    margin: 0 0 0 80px;
     display: flex;
     align-items: center;
 }
@@ -295,7 +351,7 @@ header{
 }
 .textComment{
     max-width: 294px;
-    margin: 10px 0 0 47px;
+    margin: 10px 0 0 80px;
     border-top: 1px solid #4ecdc4;
     padding: 8px 0 0 0;
 }
@@ -316,6 +372,14 @@ header{
     cursor: pointer;
     transition-duration: 0.6s;
 }
+.allComments{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10px 0 0 0;
+}
 .previous{
     left: 10px;
 }
@@ -332,17 +396,38 @@ header{
     background-color: rgb(69, 69, 69);
 }
 .registration{
-    background-color: hotpink;
     width: 100%;
-    height: 150px;
-    margin: 38px 0 0 0;
+    height: 300px;
+    margin: 90px 0 90px 0;
+}
+.registration-top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+.formRegistration{
+    margin: 20px 0 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
 }
 footer{
     background-color: #01939A;
     width: 100%;
     height: 70px;
-    position: relative;
+    position: static;
     bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.copyright{
+    margin: 0 0 0 20px;
 }
 .main{
     z-index: 10;
@@ -354,8 +439,23 @@ footer{
 .up>img{
     transform: rotate(270deg);
 }
-@media screen and (max-width: 500px) and (min-width: 430px) {
-    .image-after{
+@media screen and (min-width: 800px) {
+    .images,.difference{
+        height: 900px;
+    }
+    .about{
+        height: 945px;
+    }
+    .profile{
+        position: absolute;
+        right: 50px;
+    }
+    .profile-menu{
+        right: 30px;
+    }
+}
+@media screen and (max-width: 520px) and (min-width: 430px) {
+     .image-after{
         transition: clip-path 1.5s ease;
     }
     .closer{

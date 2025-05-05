@@ -1,9 +1,23 @@
 <?php
     require_once '../config/link.php';
+    session_start();
     $selectUsers = " SELECT * FROM `users` 
         WHERE NULLIF(`comment-user`, '') IS NOT NULL 
+        ORDER BY `users`.`date-comment-user` ASC ";
+    if(isset($_GET['sort'])){
+        if($_GET['sort'] == 'DESC'){
+            $selectUsers = " SELECT * FROM `users` 
+        WHERE NULLIF(`comment-user`, '') IS NOT NULL 
         ORDER BY `users`.`date-comment-user` DESC ";
-    $queryUsers = $link->query($selectUsers);
+        }
+        else if($_GET['sort'] == 'ASC'){
+            $selectUsers = " SELECT * FROM `users` 
+            WHERE NULLIF(`comment-user`, '') IS NOT NULL 
+            ORDER BY `users`.`date-comment-user` ASC ";
+        }
+    }
+    $queryUsers = $link->prepare($selectUsers);
+    $queryUsers->execute();
     $resultUsers = $queryUsers->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -15,9 +29,17 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="../index.php" target="_self">Назад</a>
+    <a href="./userpage.php" target="_self">Назад</a>
     <h1>Отзывы</h1>
     <main class="allComments">
+    <form action="" method="GET">
+        <label for="sort">Сортировать по:</label>
+        <select name="sort" id="sort">
+            <option value="ASC">старым комментариям</option>
+            <option value="DESC">новым комментариям</option>
+        </select>
+        <input type="submit" value="Принять">
+    </form>
     <?php foreach($resultUsers as $user){ ?>
                 <section class="comment">
                     <article class="comment-top">
@@ -30,10 +52,11 @@
                         </div>
                         <div class="name">
                             <h3><?= $user['login-user'] ?></h3>
+                            <p><?= $user['date-comment-user'] ?></p>
                         </div>
                     </article>
                     <article class="textComment">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem, expedita.</p>
+                        <p><?= $user['comment-user'] ?></p>
                     </article>
                 </section>
             <?php } ?>

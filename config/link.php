@@ -1,7 +1,7 @@
 <?php
     $password = '';
     $username = 'root';
-    $dbname = 'Dronovcoursework';
+    $dbname = 'DronovCoursework';
     $hostname = 'localhost';
     $options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
